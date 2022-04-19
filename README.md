@@ -1,7 +1,16 @@
-## **PREREQUISITES:**
+## INSTALLATION
+
+To install pKa-ANI, navigate to the directory of the source that you've download and ;
+   
+```bash     
+python setup.py install
+```
+
+### **PREREQUISITES:**
 
 * miniconda/anaconda
-* torch
+* python >=3.6
+* pytorch
 * torchani
 * ase
 * pdbfixer (requires OpenMM 6.3 or later)
@@ -10,9 +19,9 @@
 
 Other libraries: os,math,sys,io,csv,re,getopt,shutil,urllib.request,warnings 
 
-### Installations of prerequisites: 
+#### Installations of prerequisites: 
 
-#### **1. TORCH and TORCHANI:**
+##### **1. PYTORCH and TORCHANI:**
 
 https://aiqm.github.io/torchani/start.html
 
@@ -24,7 +33,7 @@ pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/
 pip install torchani
 ```
 
-#### **2. ASE:**
+##### **2. ASE:**
 
 https://wiki.fysik.dtu.dk/ase/install.html
 
@@ -38,7 +47,7 @@ or
 conda install -c conda-forge ase
 ```
 
-#### **3. JOBLIB:**
+##### **3. JOBLIB:**
 
 https://joblib.readthedocs.io/en/latest/installing.html
 
@@ -52,7 +61,7 @@ or
 conda install -c anaconda joblib
 ```
 
-#### **4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
+##### **4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
 
 OPENMM: http://docs.openmm.org/latest/userguide/index.html
 
