@@ -102,4 +102,4 @@ Example usages:
 
 CITATION
 
-				 
+Gokcan, H.; Isayev, O. Prediction of Protein p K a with Representation Learning. Chem. Sci. 2022, 13 (8), 2462–2474. https://doi.org/10.1039/D1SC05610G.				 
