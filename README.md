@@ -1,6 +1,6 @@
 ## INSTALLATION
 
-To install pKa-ANI, navigate to the directory of the source that you've download and ;
+To install pKa-ANI, navigate to the directory of the source that you've downloaded and ;
    
 ```bash     
 python setup.py install
