@@ -1,4 +1,4 @@
-PREREQUISITES:
+**PREREQUISITES:**
 
 * miniconda/anaconda
 * torch
@@ -15,7 +15,7 @@ Installation: pip3 install pkaani-0.1.0.tar.gz
 
 Installations of prerequisites: 
 
-1. TORCH and TORCHANI:
+**1. TORCH and TORCHANI:**
 	https://aiqm.github.io/torchani/start.html
 
 	prior to the installation of torch and torchani 
@@ -26,7 +26,7 @@ Installations of prerequisites:
 	pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
 	pip install torchani
 
-2. ASE:
+**2. ASE:**
 	https://wiki.fysik.dtu.dk/ase/install.html
 
 	pip install --upgrade --user ase
@@ -36,7 +36,7 @@ Installations of prerequisites:
 	conda install -c conda-forge ase
 
 
-3. JOBLIB:
+**3. JOBLIB:**
 	https://joblib.readthedocs.io/en/latest/installing.html
 
 	pip install joblib
@@ -45,7 +45,7 @@ Installations of prerequisites:
 
 	conda install -c anaconda joblib
 
-4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER
+**4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
 
         http://docs.openmm.org/latest/userguide/index.html
  
@@ -56,9 +56,9 @@ Installations of prerequisites:
 		
 		conda install -c conda-forge pdbfixer
 		
-###########################################################################
+**###########################################################################**
 
-USAGE
+**USAGE**
 
 Example usages:
 
@@ -98,8 +98,8 @@ Example usages:
                  from RCSB, its value is not taken into account.
                  Default value is False for accessible PDB files.
 				 
-###########################################################################
+**###########################################################################**
 
-CITATION
+**CITATION**
 
 Gokcan, H.; Isayev, O. Prediction of Protein p K a with Representation Learning. Chem. Sci. 2022, 13 (8), 2462–2474. https://doi.org/10.1039/D1SC05610G.				 
