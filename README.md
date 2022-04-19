@@ -1,4 +1,4 @@
-**PREREQUISITES:**
+# **PREREQUISITES:**
 
 * miniconda/anaconda
 * torch
@@ -10,85 +10,97 @@
 
 Other libraries: os,math,sys,io,csv,re,getopt,shutil,urllib.request,warnings 
 
+## Installations of prerequisites: 
 
-Installation: pip3 install pkaani-0.1.0.tar.gz
+### **1. TORCH and TORCHANI:**
 
-Installations of prerequisites: 
+https://aiqm.github.io/torchani/start.html
 
-**1. TORCH and TORCHANI:**
+prior to the installation of torch and torchani user should make sure miniconda/anaconda is installed
 
-	https://aiqm.github.io/torchani/start.html
+```bash
+pip install numpy
+pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
+pip install torchani
+```
 
-	prior to the installation of torch and torchani 
-	user should make sure miniconda/anaconda is installed
+### **2. ASE:**
 
+https://wiki.fysik.dtu.dk/ase/install.html
 
-	pip install numpy
-	pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
-	pip install torchani
+```bash
+pip install --upgrade --user ase
+```
 
-**2. ASE:**
+or
 
-	https://wiki.fysik.dtu.dk/ase/install.html
+```bash
+conda install -c conda-forge ase
+```
 
-	pip install --upgrade --user ase
+### **3. JOBLIB:**
 
-	or
+https://joblib.readthedocs.io/en/latest/installing.html
 
-	conda install -c conda-forge ase
+```bash
+pip install joblib
+```
 
+or
 
-**3. JOBLIB:**
+```bash
+conda install -c anaconda joblib
+```
 
-	https://joblib.readthedocs.io/en/latest/installing.html
+### **4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
 
-	pip install joblib
+OPENMM: http://docs.openmm.org/latest/userguide/index.html
 
-	or
+```bash
+conda install -c conda-forge openmm
+```		
 
-	conda install -c anaconda joblib
+PDBFIXER: https://github.com/openmm/pdbfixer
 
-**4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
-
-        OPENMM: http://docs.openmm.org/latest/userguide/index.html
- 
-        conda install -c conda-forge openmm
+```bash
+conda install -c conda-forge pdbfixer
+```
 		
+# **USAGE**
 
-        PDBFIXER: https://github.com/openmm/pdbfixer
-	
-	conda install -c conda-forge pdbfixer
-		
-**###########################################################################**
+## Example usages:
 
-**USAGE**
+* If PDB file doesnt exist, it is downloaded and prepared for pKa calculations.
 
-Example usages:
-
-  * If PDB file doesnt exist, it is downloaded and prepared for pKa calculations.
-
-      pkaani -i 1BNZ
+```bash
+pkaani -i 1BNZ
       
-      pkaani -i 1BNZ.pdb
+pkaani -i 1BNZ.pdb
+```
 
-  * Multiple files can be given as inputs
+* Multiple files can be given as inputs
 
-      pkaani -i 1BNZ,1E8L
+```bash
+pkaani -i 1BNZ,1E8L
+```
 
-  * If a specific directory is wanted:
+* If a specific directory is wanted:
 
-      pkaani -i path_to_file/1BNZ
+```bash
+pkaani -i path_to_file/1BNZ
       
-      pkaani -i path_to_file/1BNZ,path_to_file/1E8L
+pkaani -i path_to_file/1BNZ,path_to_file/1E8L
+```
 
-  * If PDB file exist but not prepared for pKa calculations (no H atom added):
+* If PDB file exist but not prepared for pKa calculations (no H atom added):
 
-      pkaani -i 1BNZ -p T
+```bash
+pkaani -i 1BNZ -p T
       
-      pkaani -i 1BNZ,1E8L -p True
+pkaani -i 1BNZ,1E8L -p True
+```
 
-
-  Arguments: 
+## Arguments: 
   
              -i: Input files. Inputs can be given with or without
                  file extension (.pdb). If PDB file is under a
@@ -106,8 +118,7 @@ Example usages:
                  from RCSB, its value is not taken into account.
                  Default value is False for accessible PDB files.
 				 
-**###########################################################################**
 
-**CITATION**
+# **CITATION**
 
 Gokcan, H.; Isayev, O. Prediction of Protein p K a with Representation Learning. Chem. Sci. 2022, 13 (8), 2462–2474. https://doi.org/10.1039/D1SC05610G.				 
