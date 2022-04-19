@@ -65,6 +65,7 @@ Example usages:
   * If PDB file doesnt exist, it is downloaded and prepared for pKa calculations.
 
       pkaani -i 1BNZ
+      
       pkaani -i 1BNZ.pdb
 
   * Multiple files can be given as inputs
@@ -74,11 +75,13 @@ Example usages:
   * If a specific directory is wanted:
 
       pkaani -i path_to_file/1BNZ
+      
       pkaani -i path_to_file/1BNZ,path_to_file/1E8L
 
   * If PDB file exist but not prepared for pKa calculations (no H atom added):
 
       pkaani -i 1BNZ -p T
+      
       pkaani -i 1BNZ,1E8L -p True
 
 
