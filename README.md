@@ -83,6 +83,7 @@ Example usages:
 
 
   Arguments: 
+  
              -i: Input files. Inputs can be given with or without
                  file extension (.pdb). If PDB file is under a
                  specific directory (or will be downloaded) the path
