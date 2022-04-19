@@ -103,6 +103,8 @@ pkaani -i 1BNZ,1E8L -p True
 ## Arguments: 
 
 ```bash
+-h: Help
+
 -i: Input files. Inputs can be given with or without file extension (.pdb). If PDB file is under a specific directory (or will be downloaded) the path                 
     can also be given as path_to_file/PDBFILE. Multiple PDB files can be given by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
 
