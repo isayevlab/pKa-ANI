@@ -1,4 +1,4 @@
-# **PREREQUISITES:**
+## **PREREQUISITES:**
 
 * miniconda/anaconda
 * torch
@@ -10,9 +10,9 @@
 
 Other libraries: os,math,sys,io,csv,re,getopt,shutil,urllib.request,warnings 
 
-## Installations of prerequisites: 
+### Installations of prerequisites: 
 
-### **1. TORCH and TORCHANI:**
+#### **1. TORCH and TORCHANI:**
 
 https://aiqm.github.io/torchani/start.html
 
@@ -24,7 +24,7 @@ pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/
 pip install torchani
 ```
 
-### **2. ASE:**
+#### **2. ASE:**
 
 https://wiki.fysik.dtu.dk/ase/install.html
 
@@ -38,7 +38,7 @@ or
 conda install -c conda-forge ase
 ```
 
-### **3. JOBLIB:**
+#### **3. JOBLIB:**
 
 https://joblib.readthedocs.io/en/latest/installing.html
 
@@ -52,7 +52,7 @@ or
 conda install -c anaconda joblib
 ```
 
-### **4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
+#### **4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
 
 OPENMM: http://docs.openmm.org/latest/userguide/index.html
 
@@ -66,11 +66,16 @@ PDBFIXER: https://github.com/openmm/pdbfixer
 conda install -c conda-forge pdbfixer
 ```
 		
-# **USAGE**
+## **USAGE**
 
-## Example usages:
+pKa-ANI requires PDB files to have H atoms that are added with default ionization states of residues: ASP, GLU, LYS, TYR, HID. 
 
-* If PDB file doesnt exist, it is downloaded and prepared for pKa calculations.
+If the PDB file does not involve H atoms, preparation utilty of pKa-ANI can be used (see below). 
+
+
+### Example command line usages:
+
+* If PDB file doesnt exist, it is downloaded and prepared for pKa calculations (default ionization states and H atoms are added).
 
 ```bash
 pkaani -i 1BNZ
@@ -100,19 +105,27 @@ pkaani -i 1BNZ -p T
 pkaani -i 1BNZ,1E8L -p True
 ```
 
-## Arguments: 
+### Arguments: 
 
 ```bash
 -h: Help
 
--i: Input files. Inputs can be given with or without file extension (.pdb). If PDB file is under a specific directory (or will be downloaded) the path                 
-    can also be given as path_to_file/PDBFILE. Multiple PDB files can be given by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
+-i: Input files. Inputs can be given with or without file extension (.pdb). 
+    If PDB file is under a specific directory (or will be downloaded) the path                 
+    can also be given as path_to_file/PDBFILE. Multiple PDB files can be given 
+    by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
 
--p: Prepare pdb for pKa calculations. If value is set to True, heteroatoms (except DNA and RNA) are removed, missing atoms added, and H atoms are added at pH=7 
-    (default ionization states: ASP, GLU, LYS, TYR, HID). If the pdb file is not accessible and will be downloaded from RCSB, its value is not taken into account. 
+-p: Prepare pdb for pKa calculations. If value is set to True, heteroatoms (except DNA and RNA) 
+    are removed, missing atoms added, and H atoms are added at pH=7 
+    (default ionization states: ASP, GLU, LYS, TYR, HID). 
+    If the pdb file is not accessible and will be downloaded from RCSB, its value is not taken 
+    into account. 
     Default value is False for accessible PDB files.
 ```				 
 
-# **CITATION**
+## **CITATION**
 
 Gokcan, H.; Isayev, O. Prediction of Protein p K a with Representation Learning. Chem. Sci. 2022, 13 (8), 2462–2474. https://doi.org/10.1039/D1SC05610G.				 
+## **LICENSING**
+
+Please read LICENSE file.
