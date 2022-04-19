@@ -102,21 +102,12 @@ pkaani -i 1BNZ,1E8L -p True
 
 ## Arguments: 
   
-             -i: Input files. Inputs can be given with or without
-                 file extension (.pdb). If PDB file is under a
-                 specific directory (or will be downloaded) the path
-                 can also be given as path_to_file/PDBFILE.
-                 Multiple PDB files can be given
-                 by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
+-i: Input files. Inputs can be given with or without file extension (.pdb). If PDB file is under a specific directory (or will be downloaded) the path                 
+    can also be given as path_to_file/PDBFILE. Multiple PDB files can be given by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
 
-             -p: Prepare for pKa calculations. If value is set to
-                 True, heteroatoms (except DNA and RNA)
-                 are removed, missing atoms added,
-                 and H atoms are added at pH=7 (default ionization states:
-                 ASP, GLU, LYS, TYR, HID).
-                 If the pdb file is not accessible and will be downloaded
-                 from RCSB, its value is not taken into account.
-                 Default value is False for accessible PDB files.
+-p: Prepare pdb for pKa calculations. If value is set to True, heteroatoms (except DNA and RNA) are removed, missing atoms added, and H atoms are added at pH=7 
+    (default ionization states: ASP, GLU, LYS, TYR, HID). If the pdb file is not accessible and will be downloaded from RCSB, its value is not taken into account. 
+    Default value is False for accessible PDB files.
 				 
 
 # **CITATION**
