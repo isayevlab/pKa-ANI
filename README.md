@@ -16,6 +16,7 @@ Installation: pip3 install pkaani-0.1.0.tar.gz
 Installations of prerequisites: 
 
 **1. TORCH and TORCHANI:**
+
 	https://aiqm.github.io/torchani/start.html
 
 	prior to the installation of torch and torchani 
@@ -27,6 +28,7 @@ Installations of prerequisites:
 	pip install torchani
 
 **2. ASE:**
+
 	https://wiki.fysik.dtu.dk/ase/install.html
 
 	pip install --upgrade --user ase
@@ -37,6 +39,7 @@ Installations of prerequisites:
 
 
 **3. JOBLIB:**
+
 	https://joblib.readthedocs.io/en/latest/installing.html
 
 	pip install joblib
