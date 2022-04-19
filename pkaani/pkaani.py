@@ -18,7 +18,7 @@ def calculate_pka(pdbfiles):
     # device to run the training
     device = torch.device('cpu')
     
- 
+    print("Loading pKa-ANI Models and ANI-2x...")
     #FEATURES
     tyr_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FTYR.joblib'))
     asp_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FASP.joblib'))
@@ -33,16 +33,15 @@ def calculate_pka(pdbfiles):
     lys_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/LYS_ani2x_FINAL_MODEL_F25.joblib'))
     tyr_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/TYR_ani2x_FINAL_MODEL_F25.joblib'))
     
-    #######################################################################
-    
-    
+    #######################################################################        
     #call ani
+
     ani = torchani.models.ANI2x(periodic_table_index=True)
-    
+    print('Finished Loading.')
     
     pkaressize=0
     
-    print('Loaded pKa-ANI Models and ANI-2x...')    
+        
     for fpdb in pdbfiles:
         print('Calculating pKa for %s' % fpdb)    
         
@@ -176,9 +175,4 @@ def calculate_pka(pdbfiles):
         
         fo.close()           
        
-        #rename PDB file names to get them in proper order
-        os.rename(infile,str(basename)+"_prep.pdb")
-        #os.rename(str(basename)+"_0.pdb",infile)
-
-
-    
+       

@@ -70,7 +70,8 @@ def fixer_func(pdbin,pdbout):
 
 def prep_pdb(inputpdb):
 
-    print('Preparing %s for pKa calculations' % inputpdb)   
+    pdbid=inputpdb.rsplit('_', 1)[0]
+    print('Preparing %s for pKa calculations' % pdbid)
  
     pdbid=inputpdb.rsplit('.', 1)[0]
     

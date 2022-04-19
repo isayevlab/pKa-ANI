@@ -130,6 +130,25 @@ def main():
     #CALCULATER PKA
     calculate_pka(pdbfiles)
 
+    #RENAME FILES PROPERLY
+    for inputpdb in pdbfiles:
+        pdbid=inputpdb.rsplit('.', 1)[0]
+        pdbfile=pdbid+".pdb"
+
+        if os.path.exists(pdbfile):
+           if(prep_files):
+              oldf=pdbfile
+              newf=pdbid+"_prep.pdb"
+              os.rename(oldf,newf)
+              oldf=pdbid+"_0.pdb"
+              newf=pdbfile
+              os.rename(pdbid+"_0.pdb",pdbfile)
+
+        dpdbfile=pdbid+"_RCSB.pdb"
+        if os.path.exists(dpdbfile):
+           os.rename(pdbfile,pdbid+"_prep.pdb")
+
+
 if __name__ == "__main__":
     main()
     
