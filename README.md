@@ -50,14 +50,14 @@ Installations of prerequisites:
 
 **4. IF PDB PREPARATION IS GOING TO BE USED : OPENMM and PDBFIXER**
 
-        http://docs.openmm.org/latest/userguide/index.html
+        OPENMM: http://docs.openmm.org/latest/userguide/index.html
  
         conda install -c conda-forge openmm
 		
 
-        https://github.com/openmm/pdbfixer
-		
-		conda install -c conda-forge pdbfixer
+        PDBFIXER: https://github.com/openmm/pdbfixer
+	
+	conda install -c conda-forge pdbfixer
 		
 **###########################################################################**
 
