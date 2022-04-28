@@ -6,8 +6,8 @@ import numpy as np
 
 from urllib.request import urlopen
 from io import StringIO
-from .pkaani import calculate_pka
-from .prep_pdb import prep_pdb
+from pkaani.pkaani import calculate_pka
+from pkaani.prep_pdb import prep_pdb
 
 def usage_pkaani():
     """
@@ -128,7 +128,7 @@ def main():
             prep_pdb(outfile)
         
     #CALCULATER PKA
-    calculate_pka(pdbfiles)
+    pkadict=calculate_pka(pdbfiles)
 
     #RENAME FILES PROPERLY
     for inputpdb in pdbfiles:

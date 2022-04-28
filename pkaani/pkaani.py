@@ -7,8 +7,8 @@ import numpy as np
 import csv
 import joblib 
 
-from .ani_descriptors import pdb_arrays,get_titratable,get_indices,get_desc_arrays
-from .ase_io_proteindatabank_mod import read_proteindatabank
+from pkaani.ani_descriptors import pdb_arrays,get_titratable,get_indices,get_desc_arrays
+from pkaani.ase_io_proteindatabank_mod import read_proteindatabank
 
 
 
@@ -40,11 +40,13 @@ def calculate_pka(pdbfiles):
     print('Finished Loading.')
     
     pkaressize=0
-    
+    pkadict={} 
         
     for fpdb in pdbfiles:
         print('Calculating pKa for %s' % fpdb)    
-        
+
+        pkadict[fpdb]=[]
+
         basename=fpdb.rsplit('.', 1)[0]
         infile=str(basename)+".pdb"
         
@@ -171,8 +173,12 @@ def calculate_pka(pdbfiles):
     
                wres=lres+"-"+lrnum
                writer.writerow([wres,mychain,'{:2.2f}'.format(estimate_pka[0])])
-    
+
+               resdict={}
+               resdict[lrnum]=lres,estimate_pka[0]
+               pkadict[fpdb].append(resdict)    
         
-        fo.close()           
-       
+        fo.close()                  
+
+    return pkadict
        
