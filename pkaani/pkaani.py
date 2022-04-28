@@ -61,8 +61,11 @@ def calculate_pka(pdbfiles):
         res,res_no,a_type,a_sym,a_no,pos,chainid,type_atm = pdb_arrays(atoms)
       
         chainid=np.array(chainid)
+
+        a_no2=np.reshape(a_no, (1, len(a_no)))
+        #sptensor=torch.tensor([a_no], device=device) #slow
+        sptensor=torch.tensor(a_no2, device=device)
        
-        sptensor=torch.tensor([a_no], device=device)
         pos=torch.tensor(pos,dtype=torch.float32)
         coords=torch.reshape(pos, (1, len(a_no),3))
         
