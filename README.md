@@ -25,12 +25,13 @@ Other libraries: os,math,sys,io,csv,re,getopt,shutil,urllib.request,warnings
 
 https://aiqm.github.io/torchani/start.html
 
-prior to the installation of torch and torchani user should make sure miniconda/anaconda is installed
+Prior to the installation of torch and torchani user should make sure miniconda/anaconda and pytorch is installed
+
+Install Pytorch for your system from: https://pytorch.org/get-started/locally/
+
 
 ```bash
-pip install numpy
-pip install --pre torch torchvision -f https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html
-pip install torchani
+conda install -c conda-forge torchani=2.2.0 cudatoolkit=11.2
 ```
 
 ##### **2. ASE:**
