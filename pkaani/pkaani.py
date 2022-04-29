@@ -45,7 +45,8 @@ def calculate_pka(pdbfiles):
     for fpdb in pdbfiles:
         print('Calculating pKa for %s' % fpdb)    
 
-        pkadict[fpdb]=[]
+        #pkadict[fpdb]=[]
+        pkadict[fpdb]={}
 
         basename=fpdb.rsplit('.', 1)[0]
         infile=str(basename)+".pdb"
@@ -128,7 +129,8 @@ def calculate_pka(pdbfiles):
                
                lres=str(res[index[0]].strip())
                lchid=str(chainid[index[0]]).strip()
-               lrnum=str(res_no[index[0]])
+               #lrnum=str(res_no[index[0]])
+               lrnum=(chainid[index[0]].strip(), res_no[index[0]].strip())
     
                mychain=lchid
                if not lchid: mychain='A'
@@ -174,12 +176,13 @@ def calculate_pka(pdbfiles):
       
                estimate_pka=model.predict(X)
     
-               wres=lres+"-"+lrnum
+               wres=lres+"-"+str(res_no[index[0]])
                writer.writerow([wres,mychain,'{:2.2f}'.format(estimate_pka[0])])
 
-               resdict={}
-               resdict[lrnum]=lres,estimate_pka[0]
-               pkadict[fpdb].append(resdict)    
+               #resdict={}
+               #resdict[lrnum]=lres,estimate_pka[0]
+               #pkadict[fpdb].append(resdict)    
+               pkadict[fpdb][lrnum]=lres,estimate_pka[0]
         
         fo.close()                  
 
