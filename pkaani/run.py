@@ -128,7 +128,7 @@ def main():
             prep_pdb(outfile)
         
     #CALCULATER PKA
-    pkadict=calculate_pka(pdbfiles)
+    pkadict=calculate_pka(pdbfiles,writefile=True)
 
     #RENAME FILES PROPERLY
     for inputpdb in pdbfiles:

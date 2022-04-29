@@ -12,7 +12,7 @@ from pkaani.ase_io_proteindatabank_mod import read_proteindatabank
 
 
 
-def calculate_pka(pdbfiles):
+def calculate_pka(pdbfiles,writefile=None):
 
     
     # device to run the training
@@ -51,10 +51,11 @@ def calculate_pka(pdbfiles):
         basename=fpdb.rsplit('.', 1)[0]
         infile=str(basename)+".pdb"
         
-        flog=basename+"_pka.log"
-        fo=open(flog,"w") 
-        writer = csv.writer(fo,delimiter='\t')
-        writer.writerow(['Residue', 'Chain', 'pKa'])
+        if(writefile):
+          flog=basename+"_pka.log"
+          fo=open(flog,"w") 
+          writer = csv.writer(fo,delimiter='\t')
+          writer.writerow(['Residue', 'Chain', 'pKa'])
         
         
         #read pdb, and convert to ani type
@@ -175,16 +176,18 @@ def calculate_pka(pdbfiles):
                X = np.reshape(ani_descriptors,(1, ani_descriptors.size))
       
                estimate_pka=model.predict(X)
-    
-               wres=lres+"-"+str(res_no[index[0]])
-               writer.writerow([wres,mychain,'{:2.2f}'.format(estimate_pka[0])])
+               
+               if(writefile): 
+                 wres=lres+"-"+str(res_no[index[0]])
+                 writer.writerow([wres,mychain,'{:2.2f}'.format(estimate_pka[0])])
 
                #resdict={}
                #resdict[lrnum]=lres,estimate_pka[0]
                #pkadict[fpdb].append(resdict)    
                pkadict[fpdb][lrnum]=lres,estimate_pka[0]
         
-        fo.close()                  
+        if(writefile):
+          fo.close()                  
 
     return pkadict
        
