@@ -13,8 +13,8 @@ from pdbfixer import PDBFixer
 #pdb fixer doesnt have force field option
 #so we will use Modeller, and ForceField 
 #to write PDBFile
-from simtk.openmm.app import PDBFile,Modeller 
-from simtk.openmm.app import ForceField
+from openmm.app import PDBFile,Modeller 
+from openmm.app import ForceField
 
 
 
@@ -62,8 +62,15 @@ def fixer_func(pdbin,pdbout):
     fixer.addMissingAtoms() 
 
     modeller=Modeller(fixer.topology,fixer.positions) 
-    modeller.addHydrogens(pH=ph,forcefield=forcefield)
-    
+
+    residues = [residue.name for residue in modeller.topology.residues()]
+    rvariants = [None]*len(residues)
+    for i,res in enumerate(residues):
+        if(res=='HIS'):
+          rvariants[i]='HID'
+
+    modeller.addHydrogens(forcefield=forcefield,variants=rvariants)
+
     with open(pdbout, 'w') as outfile:
          PDBFile.writeFile(modeller.topology, modeller.positions, file=outfile, keepIds=True)
 
