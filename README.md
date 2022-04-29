@@ -23,12 +23,11 @@ Other libraries: os,math,sys,io,csv,re,getopt,shutil,urllib.request,warnings
 
 ##### **1. PYTORCH and TORCHANI:**
 
-https://aiqm.github.io/torchani/start.html
-
 Prior to the installation of torch and torchani user should make sure miniconda/anaconda and pytorch is installed
 
 Install Pytorch for your system from: https://pytorch.org/get-started/locally/
 
+Torchani: https://github.com/aiqm/torchani
 
 ```bash
 conda install -c conda-forge torchani=2.2.0 cudatoolkit=11.2
