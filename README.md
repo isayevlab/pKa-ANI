@@ -23,7 +23,7 @@ Other libraries: os,math,sys,io,csv,re,getopt,shutil,urllib.request,warnings
 
 ##### **1. PYTORCH and TORCHANI:**
 
-Prior to the installation of torch and torchani user should make sure miniconda/anaconda and pytorch is installed
+Prior to the installation of torch and torchani user should make sure miniconda/anaconda is installed
 
 Install Pytorch for your system from: https://pytorch.org/get-started/locally/
 
