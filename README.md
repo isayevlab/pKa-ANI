@@ -16,6 +16,7 @@ python setup.py install
 * pdbfixer (requires OpenMM 6.3 or later)
 * joblib
 * numpy,scipy
+* sklearn (version 1.0.2)
 
 Other libraries: os,math,sys,io,csv,re,getopt,shutil,urllib.request,warnings 
 
