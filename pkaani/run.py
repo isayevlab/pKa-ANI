@@ -104,8 +104,10 @@ def main():
            if(prep_files):
               os.rename(pdbfile,pdbid+"_0.pdb")
               prep_pdb(pdbid+"_0.pdb")
+              file_exist=True
 
         else:
+            file_exist=False
             base=os.path.basename(pdbfile)
             dpdbid=base.rsplit('.', 1)[0]
 
@@ -140,13 +142,11 @@ def main():
               oldf=pdbfile
               newf=pdbid+"_prep.pdb"
               os.rename(oldf,newf)
-              oldf=pdbid+"_0.pdb"
-              newf=pdbfile
-              os.rename(pdbid+"_0.pdb",pdbfile)
+              if file_exist:
+                 oldf=pdbid+"_0.pdb"
+                 newf=pdbfile
+                 os.rename(pdbid+"_0.pdb",pdbfile)
 
-        dpdbfile=pdbid+"_RCSB.pdb"
-        if os.path.exists(dpdbfile):
-           os.rename(pdbfile,pdbid+"_prep.pdb")
 
 
 if __name__ == "__main__":
