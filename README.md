@@ -31,7 +31,7 @@ Install Pytorch for your system from: https://pytorch.org/get-started/locally/
 Torchani: https://github.com/aiqm/torchani
 
 ```bash
-conda install -c conda-forge torchani=2.2.0 cudatoolkit=11.2
+conda install -c conda-forge torchani=2.2.0 cudatoolkit
 ```
 
 ##### **2. ASE:**
