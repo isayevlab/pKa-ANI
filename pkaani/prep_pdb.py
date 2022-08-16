@@ -67,7 +67,7 @@ def fixer_func(pdbin,pdbout):
     rvariants = [None]*len(residues)
     for i,res in enumerate(residues):
         if(res=='HIS'):
-          rvariants[i]='HID'
+          rvariants[i]='HIE'
 
     modeller.addHydrogens(forcefield=forcefield,variants=rvariants)
 
