@@ -78,7 +78,7 @@ conda install -c conda-forge pdbfixer
 		
 ## **USAGE**
 
-pKa-ANI requires PDB files to have H atoms that are added with default ionization states of residues: ASP, GLU, LYS, TYR, HID. 
+pKa-ANI requires PDB files to have H atoms that are added with default ionization states of residues: ASP, GLU, LYS, TYR, HIE. 
 
 If the PDB file does not involve H atoms, preparation utilty of pKa-ANI can be used (see below). 
 
@@ -127,7 +127,7 @@ pkaani -i 1BNZ,1E8L -p True
 
 -p: Prepare pdb for pKa calculations. If value is set to True, heteroatoms (except DNA and RNA) 
     are removed, missing atoms added, and H atoms are added at pH=7 
-    (default ionization states: ASP, GLU, LYS, TYR, HID). 
+    (default ionization states: ASP, GLU, LYS, TYR, HIE). 
     If the pdb file is not accessible and will be downloaded from RCSB, its value is not taken 
     into account. 
     Default value is False for accessible PDB files.
