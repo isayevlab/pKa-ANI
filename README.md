@@ -82,6 +82,8 @@ pKa-ANI requires PDB files to have H atoms that are added with default ionizatio
 
 If the PDB file does not involve H atoms, preparation utilty of pKa-ANI can be used (see below). 
 
+__We would like to warn users, that our models expect the input PDB structures are cleaned and minimized to prevent any atomic clashes after the addition of the missing atoms. This repository does not include any utility to perform short minimization. Thus, if the current preparation utility is used as it is, users should expect significant prediction errors due to improper conformations. We will update this repository to provide minimization utility.__
+
 
 ### Example command line usages:
 
