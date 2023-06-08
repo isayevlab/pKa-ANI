@@ -30,11 +30,6 @@ Example usages:
       pkaani -i path_to_file/1BNZ
       pkaani -i path_to_file/1BNZ,path_to_file/1E8L
 
-  * If PDB file exist but not prepared for pKa calculations (no H atom added):
-
-      pkaani -i 1BNZ -p T
-      pkaani -i 1BNZ,1E8L -p True
-
 
   Arguments: -i: Input files. Inputs can be given with or without 
                  file extension (.pdb). If PDB file is under a 
@@ -42,15 +37,6 @@ Example usages:
                  can also be given as path_to_file/PDBFILE. 
                  Multiple PDB files can be given 
                  by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
-          
-             -p: Prepare for pKa calculations. If value is set to 
-                 True, heteroatoms (except DNA and RNA) 
-                 are removed, missing atoms added, 
-		 and H atoms are added at pH=7 (default ionization states: 
-		 ASP, GLU, LYS, TYR, HID). 
-                 If the pdb file is not accessible and will be downloaded 
-                 from RCSB, its value is not taken into account. 
-		 Default value is False for accessible PDB files.
 """)
 
 def handle_arguments_pkaani():
@@ -58,7 +44,7 @@ def handle_arguments_pkaani():
     prep_files = None
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hi:p:", ["help", "prep=","inp="])
+        opts, args = getopt.getopt(sys.argv[1:], "hi:", ["help","inp="])
     except getopt.GetoptError:
         usage_pkaani()
 		
@@ -68,10 +54,7 @@ def handle_arguments_pkaani():
         if opt in ('-h', "--help"):
             usage_pkaani()
             sys.exit(-1)
-			
-        elif opt in ("-p", "--prep"):
-            prep_files = arg
-			
+		
         elif opt in ("-i", "--inp"):
             inp_file=[x.strip() for x in arg.split(',')]
 			
@@ -84,29 +67,19 @@ def handle_arguments_pkaani():
         usage_pkaani()
         sys.exit(-1)
 
-    # The user may already prepared the PDB file for calculation.
-    if prep_files is None:
-        prep_files = False
-	
-    return inp_file, prep_files
-        
+    return inp_file
+
 def main():
 
-    input_files, prep_files = handle_arguments_pkaani()    
+    input_files = handle_arguments_pkaani()   
     pdbfiles=np.array(input_files)
   
-    #first check if PDB files are accessible 
+    #first prepare PDB files for pkaani 
     for inputpdb in pdbfiles:
         pdbid=inputpdb.rsplit('.', 1)[0]
         pdbfile=pdbid+".pdb"
-
-        if os.path.exists(pdbfile):
-           if(prep_files):
-              os.rename(pdbfile,pdbid+"_0.pdb")
-              prep_pdb(pdbid+"_0.pdb")
-              file_exist=True
-
-        else:
+        file_exist=True
+        if not os.path.exists(pdbfile):
             file_exist=False
             base=os.path.basename(pdbfile)
             dpdbid=base.rsplit('.', 1)[0]
@@ -121,14 +94,15 @@ def main():
             file.close()
             file = StringIO(contents)
 
-            outfile=pdbid+"_RCSB.pdb"
+            outfile=pdbfile
             
             with open(outfile, 'w') as f2:
               for line in contents:
                 f2.write(line)
                 
-            prep_pdb(outfile)
-        
+        prep_pdb(pdbfile)            
+        file_exist=True
+                            
     #CALCULATER PKA
     pkadict=calculate_pka(pdbfiles,writefile=True)
 
@@ -138,14 +112,13 @@ def main():
         pdbfile=pdbid+".pdb"
 
         if os.path.exists(pdbfile):
-           if(prep_files):
-              oldf=pdbfile
-              newf=pdbid+"_prep.pdb"
-              os.rename(oldf,newf)
-              if file_exist:
-                 oldf=pdbid+"_0.pdb"
-                 newf=pdbfile
-                 os.rename(pdbid+"_0.pdb",pdbfile)
+           oldf=pdbfile
+           newf=pdbid+"_pkaani.pdb"
+           os.rename(oldf,newf)
+           if file_exist:
+              oldf=pdbid+"_0.pdb"
+              newf=pdbfile
+              os.rename(pdbid+"_0.pdb",pdbfile)
 
 
 
