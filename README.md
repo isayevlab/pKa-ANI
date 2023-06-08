@@ -38,7 +38,7 @@ pKa-ANI requires PDB files to have H atoms that are added with default ionizatio
 Due to this reason, input PDB file(s) are prepared before the calculation of pKa values (output PDB file __'PDBID_pkaani.pdb'__). 
 
 __We would like to warn users, that our models are trained to predict pKa values for apo-proteins. 
-Due to this, all atoms that are not an aminoacid residue are removed from PDB file(s) during the preparation.__
+Due to this, any residue that is not an aminoacid is removed from PDB file(s) during the preparation.__
 
 
 ### Example command line usages:
