@@ -36,10 +36,11 @@ def make_apo_pdb(pdbin,pdbout):
           if('SSBOND' in line):
              #SSBOND   1 CYS A    6    CYS A  127
              row=line.strip().split()
-             sschain.append(row[3])
-             sschain.append(row[6])
-             ssres.append(row[4])
-             ssres.append(row[7])
+             if(row[0]=='SSBOND'):             
+                 sschain.append(row[3])
+                 sschain.append(row[6])
+                 ssres.append(row[4])
+                 ssres.append(row[7])
                                 
        for line in contents:
            row=line.strip().split()
