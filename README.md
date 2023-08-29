@@ -20,16 +20,18 @@ python setup.py install
 * miniconda/anaconda
 
 If `pkaani_env.yaml` is not used, users should make sure the following packages are installed.
-* python >=3.6
+* python=3.8
+* numpy
+* scipy
 * pytorch
-* torchani
+* torchani=2.2.0
+* scikit-learn=1.0.2
 * ase
 * joblib
-* numpy,scipy
 * ambertools
-* sklearn (version 1.0.2)
+* setuptools=58.2.0
 
-Other libraries: os,math,sys,io,csv,getopt,shutil,urllib.request,warnings,setuptools(version=58.2.0) 
+Other libraries the system may require : os,math,sys,io,csv,getopt,shutil,urllib.request,warnings 
 		
 ## **USAGE**
 
