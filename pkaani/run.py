@@ -47,6 +47,7 @@ def handle_arguments_pkaani():
         opts, args = getopt.getopt(sys.argv[1:], "hi:", ["help","inp="])
     except getopt.GetoptError:
         usage_pkaani()
+        sys.exit(-1)
 		
     for opt, arg in opts:
 	
@@ -61,6 +62,9 @@ def handle_arguments_pkaani():
         else:
             assert False, usage_pkaani()
 
+    if inp_file is None:
+        usage_pkaani()
+        sys.exit(-1)
     # Input PDB file is mandatory!
     if len(inp_file)==0: # is None:
         print("@> ERROR: A PDB file is mandatory!")
