@@ -24,7 +24,10 @@ def make_apo_pdb(pdbin,pdbout):
     altlocs= [' ','A']
 
     sschain=[]
-    ssres=[]                 
+    ssres=[]       
+    ssbond=dict() 
+    ss_id=1 
+             
     protein=[]
     model_num='1'
 
@@ -37,10 +40,20 @@ def make_apo_pdb(pdbin,pdbout):
              #SSBOND   1 CYS A    6    CYS A  127
              row=line.strip().split()
              if(row[0]=='SSBOND'):             
-                 sschain.append(row[3])
-                 sschain.append(row[6])
-                 ssres.append(row[4])
-                 ssres.append(row[7])
+
+                 ss_ch1=row[3]
+                 ss_ch2=row[6]
+                 ss_r1=row[4]
+                 ss_r2=row[7]
+                 
+                 sschain.append(ss_ch1)
+                 sschain.append(ss_ch2)
+                 ssres.append(ss_r1)
+                 ssres.append(ss_r2)
+                 
+                 key=ss_id
+                 ssbond[key]=[ss_r1,ss_ch1,ss_r2,ss_ch2]
+                 ss_id=ss_id+1                 
                                 
        for line in contents:
            row=line.strip().split()
@@ -77,18 +90,24 @@ def make_apo_pdb(pdbin,pdbout):
            if(row[0]=='END'):
               protein.append(line)       
 
-       
+
     with open(pdbout, 'w') as f:
        for line in protein:
-           f.write(line)       
-       
-def tleap_vacuum(pdbfile):
+           f.write(line)      
+            
+    return ssbond   
+    
+           
+def tleap_vacuum(pdbfile,ssbond=None):
  
     outname=pdbfile.rsplit('.', 1)[0]
     topfile=outname+'_vac.prmtop'
     crdfile=outname+'_vac.rst'   
     
     model='protein = loadpdb '+ pdbfile+'\n'   
+    
+
+           
     savetop='saveamberparm protein '+topfile+' '+crdfile+'\n'
  
     if os.path.exists('tleap_vacuum.in'):
@@ -98,7 +117,18 @@ def tleap_vacuum(pdbfile):
     in_file = open('tleap_vacuum.in', 'a')
     in_file.write('source leaprc.protein.ff14SB\n')  
     in_file.write(model)
+
+    if(ssbond is not None):
+       for key,values in ssbond.items():
+           #bond protein.218.SG protein.221.SG
+           bondtxt="bond protein."+str(values[0])+".SG protein."+str(values[1])+".SG \n"
+           in_file.write(bondtxt)
+
     in_file.write(savetop)
+    
+
+        
+    
     in_file.write('quit\n')
     in_file.close()
 
@@ -137,12 +167,12 @@ def parm_top(pdbfile,topfile):
     action.execute()  
     return newtop         
        
-def add_missing_atoms(pdbin,pdbout):
+def add_missing_atoms(pdbin,pdbout,ssbond=None):
 
     base_name=pdbin.rsplit('.', 1)[0]
     
     #add missing atoms
-    outfiles,charge=tleap_vacuum(pdbin)
+    outfiles,charge=tleap_vacuum(pdbin,ssbond=ssbond)
     
     #add pdb information to topology with parm
     newtop=parm_top(pdbin,outfiles[0])
@@ -194,6 +224,39 @@ def run_sander_min(top,rst,pdbout):
   if os.path.exists("min.in"): os.remove("min.in") 
 
 
+def get_ssbond_rno(pdbin,ssbond):
+
+    print("Running pdb4amber to obtain amber numbering")
+    cmd="pdb4amber " + pdbin +" > "+"tmp.pdb"
+    p=sp.call(cmd,shell=True) 
+
+    ssbond_amber=dict()
+
+    with open('stdout_renum.txt', 'r') as f:
+      contents = f.readlines()
+      for i,line in enumerate(contents):
+         row=line.strip().split()
+         if(row[0].strip()=='CYX'): 
+            for key,values in ssbond.items():
+                
+                if( row[2]==values[0] and row[1]==values[1] ):
+                     new_val=[row[-1]]
+                     bond_to=[values[2],values[3]]
+
+                elif( (row[2]==values[2] and row[1]==values[3]) and
+                      (row[2]==bond_to[0] and row[1]==bond_to[1])):
+                      new_val.append(row[-1])
+                      ssbond_amber[key]=new_val
+                      
+                          
+    if os.path.exists("stdout_nonprot.pdb"): os.remove("stdout_nonprot.pdb")
+    if os.path.exists("stdout_sslink"): os.remove("stdout_sslink")    
+    #if os.path.exists('pdb4amber.log'): os.remove('pdb4amber.log') 
+    if os.path.exists('tmp.pdb'): os.remove('tmp.pdb') 
+    if os.path.exists('pdb4amber.log'): os.remove('pdb4amber.log') 
+    if os.path.exists('stdout_renum.txt'): os.remove('stdout_renum.txt') 
+    
+    return ssbond_amber
 
 def prep_pdb(inputpdb):
 
@@ -204,9 +267,16 @@ def prep_pdb(inputpdb):
     shutil.copyfile(pdbin, pdb_cp)
     
     pdbout0=base_name+'_clean.pdb'
-    make_apo_pdb(pdbin,pdbout0)     
+    ssbonds=make_apo_pdb(pdbin,pdbout0)    
+    
+    ssbond_amber=None
+    if(len(ssbonds)!=0):
+       ssbond_amber=get_ssbond_rno(pdbout0,ssbonds)
+        
+    
+    
     pdbout1=base_name+'_H.pdb'
-    top,rst=add_missing_atoms(pdbout0,pdbout1)
+    top,rst=add_missing_atoms(pdbout0,pdbout1,ssbond=ssbond_amber)
     pdbout2=base_name+'.pdb'
     run_sander_min(top,rst,pdbout2)
     if os.path.exists(top): os.remove(top)
