@@ -117,17 +117,13 @@ def calculate_pka(pdbfiles,writefile=None):
             all_acti.append(activation_i)
             all_aevi.append(aev_i)               
     
-        print(pka_res_chain)
-
         #now we are looping over residues
         #then if the residue is titratable 
         # we get aev, NN activation, and atom indices    
         for i,r in enumerate(atom_list):
             index = pdball_resi[i]
-            print(index[0])
             lres=res[index[0]]
             lchid=str(r[1])
-            print(r)
 
             # checking chain, atom num matches a residue that is supposed to
             # be titratable and predictable via existing pKa-ANI models
