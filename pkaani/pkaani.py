@@ -76,7 +76,8 @@ def calculate_pka(pdbfiles,writefile=None):
             
         #find titratable residues
         pkares,pkach=get_titratable(a_type,res,res_no,chainid)
-        
+        pka_res_chain = [(i, j) for i, j in zip(pkares, pkach)]
+
         #   divide atoms into groups by residue number
         #   this will be used to get activation and aev indices
         #   ca_list: the indices of CA atoms
@@ -91,18 +92,17 @@ def calculate_pka(pdbfiles,writefile=None):
         #                   array([ 8,  9, 10, 11]), 
         #                   array([12, 13, 14, 15, 16, 17, 18, 19, 20])]
         
-        ca_list=[]
-        chlist=[]
+        atom_list=[]
+
         for i,a in enumerate(a_type):
             if((str(a)=='CA') and type_atm[i].strip()=='ATOM'):
-                ca_list.append(res_no[i])
-                chlist.append(chainid[i])
+                atom_list.append((res_no[i], chainid[i]))
       
     
         
         pdball_resi=[]
-        for i,r in enumerate(ca_list):
-            ilist=np.array(np.where((res_no == r) & (chainid == chlist[i])))
+        for i,r in enumerate(atom_list):
+            ilist=np.array(np.where((res_no == r[0]) & (chainid == r[1])))
             pdball_resi.append(ilist.flatten())
         
         nk,ck,ok=0,0,0 # counters for activation indices
@@ -117,19 +117,22 @@ def calculate_pka(pdbfiles,writefile=None):
             all_acti.append(activation_i)
             all_aevi.append(aev_i)               
     
-    
         #now we are looping over residues
         #then if the residue is titratable 
         # we get aev, NN activation, and atom indices    
-        for i,r in enumerate(ca_list):
-            if(r in list(pkares)):
+        for i,r in enumerate(atom_list):
+            index = pdball_resi[i]
+            lres=res[index[0]]
+            lchid=str(r[1])
+
+            # checking chain, atom num matches a residue that is supposed to
+            # be titratable and predictable via existing pKa-ANI models
+            if(r in pka_res_chain):
                pkaressize=pkaressize+1
                res_aevi=all_aevi[i]           
                res_acti=all_acti[i]
                index=pdball_resi[i]
                
-               lres=str(res[index[0]].strip())
-               lchid=str(chainid[index[0]]).strip()
                #lrnum=str(res_no[index[0]])
                lrnum=(chainid[index[0]].strip(), res_no[index[0]].strip())
     
