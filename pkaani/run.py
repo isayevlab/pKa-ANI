@@ -106,10 +106,10 @@ def main():
 				oldf=pdbfile
 				newf=pdbid+"_pkaani.pdb"
 				os.rename(oldf,newf)
-			if file_exist:
-				oldf=pdbid+"_0.pdb"
-				newf=pdbfile
-				os.rename(pdbid+"_0.pdb",pdbfile)
+				if file_exist:
+					oldf=pdbid+"_0.pdb"
+					newf=pdbfile
+					os.rename(pdbid+"_0.pdb",pdbfile)
 
 
 
