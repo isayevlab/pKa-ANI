@@ -14,34 +14,34 @@ from pkaani.ase_io_proteindatabank_mod import read_proteindatabank
 
 def calculate_pka(pdbfiles,writefile=None):
 
-    
-    # device to run the training
-    device = torch.device('cpu')
-    
-    print("Loading pKa-ANI Models and ANI-2x...")
-    #FEATURES
-    tyr_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FTYR.joblib'))
-    asp_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FASP.joblib'))
-    glu_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FGLU.joblib'))
-    lys_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FLYS.joblib'))
-    his_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FHIS.joblib'))
-    
-    #MODELS
-    asp_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/ASP_ani2x_FINAL_MODEL_F100.joblib'))
-    glu_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/GLU_ani2x_FINAL_MODEL_F75.joblib'))
-    his_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/HIS_ani2x_FINAL_MODEL_F100.joblib'))
-    lys_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/LYS_ani2x_FINAL_MODEL_F25.joblib'))
-    tyr_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/TYR_ani2x_FINAL_MODEL_F25.joblib'))
-    
-    #######################################################################        
-    #call ani
-
-    ani = torchani.models.ANI2x(periodic_table_index=True)
-    print('Finished Loading.')
-    
-    pkaressize=0
-    pkadict={} 
+    if len(pdbfiles) != 0:
+        # device to run the training
+        device = torch.device('cpu')
         
+        print("Loading pKa-ANI Models and ANI-2x...")
+        #FEATURES
+        tyr_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FTYR.joblib'))
+        asp_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FASP.joblib'))
+        glu_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FGLU.joblib'))
+        lys_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FLYS.joblib'))
+        his_features=joblib.load(os.path.join(os.path.dirname(__file__),'models/FHIS.joblib'))
+        
+        #MODELS
+        asp_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/ASP_ani2x_FINAL_MODEL_F100.joblib'))
+        glu_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/GLU_ani2x_FINAL_MODEL_F75.joblib'))
+        his_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/HIS_ani2x_FINAL_MODEL_F100.joblib'))
+        lys_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/LYS_ani2x_FINAL_MODEL_F25.joblib'))
+        tyr_model=joblib.load(os.path.join(os.path.dirname(__file__),'models/TYR_ani2x_FINAL_MODEL_F25.joblib'))
+        
+        #######################################################################        
+        #call ani
+
+        ani = torchani.models.ANI2x(periodic_table_index=True)
+        print('Finished Loading.')
+        
+        pkaressize=0
+        pkadict={} 
+            
     for fpdb in pdbfiles:
         print('Calculating pKa for %s' % fpdb)    
 
