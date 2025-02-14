@@ -8,6 +8,8 @@ import argparse
 from urllib.request import urlopen
 from io import StringIO
 
+from pkaani.prep_pdb import prep_pdb
+
 class MyParser(argparse.ArgumentParser):
 	def error(self, message):
 		sys.stderr.write('error: %s\n' % message)
@@ -88,10 +90,9 @@ def main():
 				with open(outfile, 'w') as f2:
 					for line in contents:
 						f2.write(line)
-				
-				from pkaani.prep_pdb import prep_pdb
-				prep_pdb(pdbfile)			 
-				file_exist=True
+			
+			prep_pdb(pdbfile)			 
+			file_exist=True
 					
 		#CALCULATER PKA
 		from pkaani.pkaani import calculate_pka
