@@ -3,16 +3,25 @@ import os
 import getopt
 import shutil
 import numpy as np
+import argparse
 
 from urllib.request import urlopen
 from io import StringIO
 from pkaani.pkaani import calculate_pka
 from pkaani.prep_pdb import prep_pdb
 
+class MyParser(argparse.ArgumentParser):
+    def error(self, message):
+        sys.stderr.write('error: %s\n' % message)
+        usage_pkaani()
+        sys.exit(2)
+
+
 def usage_pkaani():
     """
     Show how to use this program!
     """
+
     print("""
 Example usages:
 
@@ -39,43 +48,16 @@ Example usages:
                  by using "," as separator (i.e. pkaani -i 1BNZ,1E8L).
 """)
 
-def handle_arguments_pkaani():
-    inp_file = None
-    prep_files = None
-
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "hi:", ["help","inp="])
-    except getopt.GetoptError:
-        usage_pkaani()
-        sys.exit(-1)
-		
-    for opt, arg in opts:
-	
-
-        if opt in ('-h', "--help"):
-            usage_pkaani()
-            sys.exit(-1)
-		
-        elif opt in ("-i", "--inp"):
-            inp_file=[x.strip() for x in arg.split(',')]
-			
-        else:
-            assert False, usage_pkaani()
-
-    if inp_file is None:
-        usage_pkaani()
-        sys.exit(-1)
-    # Input PDB file is mandatory!
-    if len(inp_file)==0: # is None:
-        print("@> ERROR: A PDB file is mandatory!")
-        usage_pkaani()
-        sys.exit(-1)
-
-    return inp_file
-
 def main():
 
-    input_files = handle_arguments_pkaani()   
+    
+    parser = MyParser(description="Given a PDB, find the pKa of the titratable amino acids")
+    parser.add_argument("-i", "--input_file_list", type=str, help="Comma-separated list of input files", required=True)
+
+    args = parser.parse_args()
+
+    input_files = [x.strip() for x in args.input_file_list.split(',')]
+
     pdbfiles=np.array(input_files)
   
     #first prepare PDB files for pkaani 
