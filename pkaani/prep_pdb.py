@@ -33,7 +33,6 @@ def make_apo_pdb(pdbin,pdbout):
 
     with open(pdbin, 'r+') as fd:
        contents = fd.readlines()
-       
        #first find if there is an SSBOND
        for line in contents:
           if('SSBOND' in line):
@@ -57,7 +56,9 @@ def make_apo_pdb(pdbin,pdbout):
                                 
        for line in contents:
            row=line.strip().split()
-           
+           if (len(row) == 0):
+               continue
+
            if row[0]=='MODEL': 
               model_num = row[-1].strip() 
               if(model_num=='1'): protein.append(line)
